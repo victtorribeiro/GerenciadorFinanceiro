@@ -9,10 +9,12 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 
     boolean existsByEmail (String email);
 
+    Optional<Usuario> findByEmail(String email);
+
 
 
     //Optional<Usuario> findByEmail(String email);
-    // EXEMPLO DE CONCATENAÇÃO
+    //EXEMPLO DE CONCATENAÇÃO
     //Optional<Usuario> findByEmailAndNome(String email, String nome);
 
 }

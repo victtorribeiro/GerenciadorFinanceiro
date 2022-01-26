@@ -2,11 +2,15 @@ package github.victtorribeiro.minhasfinancas.service.impl;
 
 import github.victtorribeiro.minhasfinancas.domain.entity.Usuario;
 import github.victtorribeiro.minhasfinancas.domain.respository.UsuarioRepository;
+import github.victtorribeiro.minhasfinancas.exception.ErroAutenticacao;
 import github.victtorribeiro.minhasfinancas.exception.RegraNegocioException;
 import github.victtorribeiro.minhasfinancas.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -21,12 +25,25 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario autenticar(String email, String senha) {
-        return null;
+        Optional<Usuario> usuario = repository.findByEmail(email);
+
+        if (!usuario.isPresent()){
+            throw new ErroAutenticacao("Usuário não encontrado com esse email.");
+        }
+
+        if (!usuario.get().getSenha().equals(senha)){
+            throw new ErroAutenticacao("Senha inválida.");
+        }
+
+        return usuario.get();
     }
 
     @Override
+    @Transactional
     public Usuario salvarUsuario(Usuario usuario) {
-        return null;
+        validarEmail(usuario.getEmail());
+
+        return repository.save(usuario);
     }
 
     @Override
