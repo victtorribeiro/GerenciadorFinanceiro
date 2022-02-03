@@ -11,7 +11,7 @@ create table financas.usuario(
 drop table financas.lancamento;
 create table financas.lancamento(
 	id bigserial not null primary key,
-	character varying(100) not null,
+	descricao character varying(100) not null,
 	mes integer not null,
 	ano integer not null,
 	valor numeric(16,2) not null,
