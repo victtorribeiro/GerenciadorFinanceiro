@@ -6,7 +6,6 @@ import github.victtorribeiro.minhasfinancas.exception.ErroAutenticacao;
 import github.victtorribeiro.minhasfinancas.exception.RegraNegocioException;
 import github.victtorribeiro.minhasfinancas.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,5 +51,10 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (existe){
             throw new RegraNegocioException("Usuário cadastrado com esse email.");
         }
+    }
+
+    @Override
+    public Optional<Usuario> obterPorId(Long id) {
+        return repository.findById(id);
     }
 }
