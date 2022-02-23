@@ -1,7 +1,7 @@
 package github.victtorribeiro.minhasfinancas.service.impl;
 
 import github.victtorribeiro.minhasfinancas.domain.entity.Usuario;
-import github.victtorribeiro.minhasfinancas.domain.respository.UsuarioRepository;
+import github.victtorribeiro.minhasfinancas.domain.repository.UsuarioRepository;
 import github.victtorribeiro.minhasfinancas.exception.ErroAutenticacao;
 import github.victtorribeiro.minhasfinancas.exception.RegraNegocioException;
 import github.victtorribeiro.minhasfinancas.service.UsuarioService;

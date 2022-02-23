@@ -1,4 +1,4 @@
-package github.victtorribeiro.minhasfinancas.domain.respository;
+package github.victtorribeiro.minhasfinancas.domain.repository;
 
 import github.victtorribeiro.minhasfinancas.domain.entity.Lancamento;
 import github.victtorribeiro.minhasfinancas.domain.enums.TipoLancamento;

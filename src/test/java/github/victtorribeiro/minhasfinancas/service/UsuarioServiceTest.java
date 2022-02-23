@@ -1,18 +1,13 @@
 package github.victtorribeiro.minhasfinancas.service;
 
-import com.sun.source.tree.ModuleTree;
 import github.victtorribeiro.minhasfinancas.domain.entity.Usuario;
-import github.victtorribeiro.minhasfinancas.domain.respository.UsuarioRepository;
+import github.victtorribeiro.minhasfinancas.domain.repository.UsuarioRepository;
 import github.victtorribeiro.minhasfinancas.exception.ErroAutenticacao;
 import github.victtorribeiro.minhasfinancas.exception.RegraNegocioException;
-import github.victtorribeiro.minhasfinancas.service.impl.UsuarioServiceImpl;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.mock.mockito.SpyBean;
