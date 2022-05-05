@@ -8,7 +8,9 @@ create table financas.usuario(
 	senha character varying(20),
 	data_cadastro date default now()
 );
+
 drop table financas.lancamento;
+
 create table financas.lancamento(
 	id bigserial not null primary key,
 	descricao character varying(100) not null,
