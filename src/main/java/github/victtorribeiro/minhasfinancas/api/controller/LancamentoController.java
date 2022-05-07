@@ -39,6 +39,13 @@ public class LancamentoController {
         }
     }
 
+    @GetMapping("/buscar-id/{id}")
+    public ResponseEntity obterPorId(@PathVariable("id") Long id){
+        Optional<Lancamento> lancamento = service.obterPorId(id);
+        return ResponseEntity.ok(lancamento);
+
+    }
+
     @PutMapping("/atualizar/{id}")
     public ResponseEntity atualizar(@PathVariable("id") Long id, @RequestBody LancamentoDTO dto){
         return service.obterPorId(id).map( entity -> {
@@ -103,12 +110,6 @@ public class LancamentoController {
         );
 
     }
-
-
-
-
-
-
 
 
     private Lancamento converter(LancamentoDTO dto){
