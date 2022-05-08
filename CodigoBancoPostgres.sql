@@ -21,4 +21,5 @@ create table financas.lancamento(
 	status character varying(20) check ( status in ('PENDENTE', 'CANCELADO', 'EFETIVADO') ) not null,
 	id_usuario bigint references financas.usuario (id) not null,
 	data_cadastro date default now()
+	
 );
