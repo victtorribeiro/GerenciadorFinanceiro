@@ -40,10 +40,10 @@ public class LancamentoController {
     }
 
     @GetMapping("/buscar-id/{id}")
-    public ResponseEntity obterPorId(@PathVariable("id") Long id){
-        Optional<Lancamento> lancamento = service.obterPorId(id);
-        return ResponseEntity.ok(lancamento);
-
+    public ResponseEntity obterLancamentoPorId(@PathVariable("id") Long id){
+        return service.obterPorId(id)
+                .map( lancamento -> new ResponseEntity(converter(lancamento), HttpStatus.OK))
+                .orElseGet( () -> new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 
     @PutMapping("/atualizar/{id}")
@@ -111,6 +111,18 @@ public class LancamentoController {
 
     }
 
+    private LancamentoDTO converter(Lancamento lancamento){
+        return LancamentoDTO.builder()
+                .id(lancamento.getId())
+                .descricao(lancamento.getDescricao())
+                .valor(lancamento.getValor())
+                .mes(lancamento.getMes())
+                .ano(lancamento.getAno())
+                .status(lancamento.getStatus().name())
+                .tipo(lancamento.getTipo().name())
+                .usuario(lancamento.getUsuario().getId())
+                .build();
+    }
 
     private Lancamento converter(LancamentoDTO dto){
         Lancamento lancamento =  new Lancamento();
