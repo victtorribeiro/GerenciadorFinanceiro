@@ -7,6 +7,7 @@ create table financas.usuario(
 	email character varying(100),
 	senha character varying(20),
 	data_cadastro date default now()
+	
 );
 
 drop table financas.lancamento;
