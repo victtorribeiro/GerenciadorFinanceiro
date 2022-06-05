@@ -3,9 +3,9 @@ CREATE SCHEMA financas;
 
 create table financas.usuario(
 	id bigserial not null primary key,
-	nome character varying(150),
-	email character varying(100),
-	senha character varying(20),
+	nome character varying(255),
+	email character varying(255),
+	senha character varying(255),
 	data_cadastro date default now()
 	
 );
