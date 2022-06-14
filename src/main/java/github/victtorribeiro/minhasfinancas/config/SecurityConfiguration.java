@@ -1,5 +1,7 @@
 package github.victtorribeiro.minhasfinancas.config;
 
+import github.victtorribeiro.minhasfinancas.service.impl.SecurityUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,6 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private SecurityUserDetailsService userDetailsService;
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         PasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -23,10 +28,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         String senhaCodificada = passwordEncoder().encode("root");
 
-        auth.inMemoryAuthentication()
-                .withUser("root")
-                .password(senhaCodificada)
-                .roles("USER");
+        auth
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(passwordEncoder())
+        ;
     }
 
     @Override
