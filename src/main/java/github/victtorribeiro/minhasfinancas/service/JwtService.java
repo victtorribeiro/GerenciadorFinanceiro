@@ -6,7 +6,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 
 public interface JwtService {
 
-    String gertarToken(Usuario usuario);
+    String gerarToken(Usuario usuario);
 
     Claims obterClaims(String token) throws ExpiredJwtException;
 
