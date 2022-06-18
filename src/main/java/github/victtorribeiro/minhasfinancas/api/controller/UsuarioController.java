@@ -1,9 +1,11 @@
 package github.victtorribeiro.minhasfinancas.api.controller;
 
+import github.victtorribeiro.minhasfinancas.api.dto.TokenDTO;
 import github.victtorribeiro.minhasfinancas.api.dto.UsuarioDTO;
 import github.victtorribeiro.minhasfinancas.domain.entity.Usuario;
 import github.victtorribeiro.minhasfinancas.exception.ErroAutenticacao;
 import github.victtorribeiro.minhasfinancas.exception.RegraNegocioException;
+import github.victtorribeiro.minhasfinancas.service.JwtService;
 import github.victtorribeiro.minhasfinancas.service.LancamentoService;
 import github.victtorribeiro.minhasfinancas.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ public class UsuarioController {
 
     private final UsuarioService service;
     private final LancamentoService lancamentoService;
+    private final JwtService jwtService;
 
 
     @PostMapping("/salvar")
@@ -42,11 +45,15 @@ public class UsuarioController {
     }
 
     @PostMapping("/autenticar")
-    public ResponseEntity autenticar(@RequestBody UsuarioDTO dto){
+    public ResponseEntity<?> autenticar(@RequestBody UsuarioDTO dto){
 
         try {
             Usuario usuarioAutenticado = service.autenticar(dto.getEmail(), dto.getSenha());
-            return ResponseEntity.ok(usuarioAutenticado);
+            String token = jwtService.gerarToken(usuarioAutenticado);
+            TokenDTO tokenDTO = new TokenDTO(usuarioAutenticado.getNome(), token);
+
+
+            return ResponseEntity.ok(tokenDTO);
         }catch (ErroAutenticacao e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
