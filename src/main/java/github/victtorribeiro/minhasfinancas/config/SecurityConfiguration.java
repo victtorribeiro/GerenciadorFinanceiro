@@ -1,5 +1,7 @@
 package github.victtorribeiro.minhasfinancas.config;
 
+import github.victtorribeiro.minhasfinancas.api.JwtTokenFilter;
+import github.victtorribeiro.minhasfinancas.service.JwtService;
 import github.victtorribeiro.minhasfinancas.service.impl.SecurityUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,17 +13,25 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private SecurityUserDetailsService userDetailsService;
+    @Autowired
+    private JwtService jwtService;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
         PasswordEncoder encoder = new BCryptPasswordEncoder();
         return encoder;
+    }
+
+    @Bean
+    public JwtTokenFilter jwtTokenFilter(){
+        return new JwtTokenFilter(jwtService, userDetailsService);
     }
 
     @Override
@@ -44,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-                .httpBasic();
+                .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
 
