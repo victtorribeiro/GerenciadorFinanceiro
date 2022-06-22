@@ -1,2 +1,2 @@
 # GerenciadorFinanceiro
-API REST spring boot para gerenciamento financeiro .
+API REST spring boot para gerenciamento financeiro.
